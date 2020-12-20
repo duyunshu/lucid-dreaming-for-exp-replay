@@ -1,7 +1,7 @@
 #!/bin/bash
 currentDate=`date +"%m-%d-%Y"`
 
-# Four games to choose from: MsPacman, Alien, Freeway, MontezumaRevenge
+# Six games to choose from
 game=$1
 
 if [ "$game" == "Gopher" ]; then

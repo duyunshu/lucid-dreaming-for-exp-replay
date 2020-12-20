@@ -22,7 +22,7 @@ LiDER-TA, LiDER-BC, data and plots, running on a cluster
 
 ## Installation
 
-It is recommended to use a virtual environment for installation. Using ```conda``` as an example here.
+It is recommended to use a virtual environment for installation. Using ```conda``` (version 4.7.10) as an example here .
 
 Create a virtual environment (name "liderenv") from the ```env.yml``` file:
 
