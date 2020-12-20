@@ -26,7 +26,7 @@ fi
 python3 LiDER/run_experiment.py \
   --gym-env=${game}NoFrameskip-v4 \
   --parallel-size=17 \
-  --max-time-step-fraction=0.0006 \
+  --max-time-step-fraction=0.5 \
   --use-mnih-2015 --input-shape=88 --padding=SAME \
   --unclipped-reward --transformed-bellman \
   --use-sil --priority-memory \
@@ -35,6 +35,4 @@ python3 LiDER/run_experiment.py \
   --append-experiment-num=${currentDate} \
   --use-lider \
   --sampleR \
-  --eval-freq=20000 \
-  --eval-max-steps=2000 \
   # --use-gpu --cuda-devices=0 \ # uncomment for gpu support
