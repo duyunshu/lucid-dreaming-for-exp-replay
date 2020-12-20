@@ -1,20 +1,4 @@
 #!/usr/bin/env python3
-"""Asynchronous Advantage Actor-Critic (A3C).
-
-Usage:
-python3 run_experiment.py --gym-env=PongNoFrameskip-v4 --parallel-size=16
-    --initial-learn-rate=7e-4 --use-lstm --use-mnih-2015
-
-python3 run_experiment.py --gym-env=PongNoFrameskip-v4 --parallel-size=16
-    --initial-learn-rate=7e-4 --use-lstm --use-mnih-2015 --use-transfer
-    --not-transfer-fc2 --transfer-folder=<>
-
-python3 run_experiment.py --gym-env=PongNoFrameskip-v4 --parallel-size=16
-    --initial-learn-rate=7e-4 --use-lstm --use-mnih-2015 --use-transfer
-    --not-transfer-fc2 --transfer-folder=<> --load-pretrained-model
-    --pretrained-model-folder=<>
-    --use-pretrained-model-as-advice --use-pretrained-model-as-reward-shaping
-"""
 import logging
 import numpy as np
 import os
@@ -725,19 +709,6 @@ def run_a3c(args):
                     rollout_dict['rollout_added_ctr'][step_t] = rollout_added_ctr
                     rollout_dict['rollout_new_return'][step_t] = rollout_new_return
                     rollout_dict['rollout_old_return'][step_t] = rollout_old_return
-
-                    # # testing classifier in game (retrain classifier)
-                    # # 10/31: only test once at step 0 since classifiers are fixed
-                    # if args.load_pretrained_model:
-                    #     assert pretrain_sess is not None
-                    #     assert global_pretrained_model is not None
-                    #     class_rewards['class_eval'][step_t] = \
-                    #         parallel_worker.test_loaded_classifier(global_t=step_t,
-                    #                                     max_steps=args.eval_max_steps,
-                    #                                     sess=pretrain_sess,
-                    #                                     worker=all_workers[-1],
-                    #                                     model=global_pretrained_model)
-                    #     class_last_reward = class_rewards['class_eval'][step_t][0]
 
                     # save after done with eval
                     if global_t > next_save_t:
