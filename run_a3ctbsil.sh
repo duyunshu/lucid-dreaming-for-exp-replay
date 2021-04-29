@@ -1,5 +1,4 @@
 #!/bin/bash
-currentDate=`date +"%m-%d-%Y"`
 
 # Six games to choose from
 game=$1
@@ -32,5 +31,5 @@ python3 LiDER/run_experiment.py \
   --use-sil --priority-memory \
   --batch-size=32 \
   --checkpoint-buffer --checkpoint-freq=1 \
-  --append-experiment-num=${currentDate} \
+  --append-experiment-num=1 \
   # --use-gpu --cuda-devices=0 \ # uncomment for gpu support
