@@ -100,7 +100,7 @@ To run the extension LiDER-BC:
 
     $./run_lider_bc MsPacman
 
-## Checkpointing
+## <a name="ckpt"></a>Checkpointing
 
 By default, our implementation checkpoints the training process every 1 million training steps and dumps results to the ```results``` folder (which will be created if not already exists), including:
 * Current model parameters: folder `model_checkpoints`
@@ -115,7 +115,9 @@ By default, our implementation checkpoints the training process every 1 million 
 
 At the beginning of a run, our implementation looks for whether a folder for the same experiment setting already exists for the current experiment. If so, it will resume from the last saved checkpoint; otherwise, it will create a new experiment folder and start training from scratch.
 
-The experiment folder will be created under `results` during training based on the current setting. For example. the experiment folder for training LiDER on MsPacman will be named `MsPacmanNoFrameskip_v4_rawreward_transformedbell_sil_prioritymem_lider_[today's date]`
+The experiment folder will be created under `results` during training based on the current setting. For example. the experiment folder for training LiDER on MsPacman will be named `MsPacmanNoFrameskip_v4_rawreward_transformedbell_sil_prioritymem_lider_[trial_number]`.
+
+`[trial_number]` is set by parameter `--append-experiment-num` in the bach file. By default, `--append-experiment-num=1`. To run more trials, set it to a different number, such as `--append-experiment-num=2` or `--append-experiment-num=3`.
 
 The checkpointing frequency can be changed by modifying argument ```--checkpoint-freq=1``` to any number between 0 and 50. For example, ```--checkpoint-freq=5``` means to checkpoint every 5 million training steps.
 
@@ -127,10 +129,55 @@ Note that saving replay buffers can be memory-intensive. If you don't have enoug
 ## Data and plots
 
 ####  Reproduce figures in the paper
+(Coming soon..) See folder [data_and_plots](https://github.com/duyunshu/lucid-dreaming-for-exp-replay/tree/master/data_and_plots).
 
-####  Plot your results
+####  Plot your experiment results
+When running your own experiments, a `results` folder will be created to save results. For example, after training MsPacman using LiDER for three trials, the `results` folder will structure as follows:
+```
+lucid-dreaming-for-exp-replay
+└──LiDER
+└──pretrained_models
+└──results
+   └── a3c
+        └── MsPacmanNoFrameskip_v4_rawreward_transformedbell_sil_prioritymem_lider_1
+        └── MsPacmanNoFrameskip_v4_rawreward_transformedbell_sil_prioritymem_lider_2
+        └── MsPacmanNoFrameskip_v4_rawreward_transformedbell_sil_prioritymem_lider_3
+   └── log
+        └── a3c
+            └── MsPacmanNoFrameskip_v4
+```
+
+`results/a3c` saves model checkpoints and testing rewards (see descriptions under [Checkpointing](#ckpt)). `results/log` saves tensorboard events so that you can monitor the training process. To launch tensorboard, follow the standard procedure and set `--logdir` to corresponding log folders. See [TensorBoard website](https://www.tensorflow.org/tensorboard/get_started) for more instructions.
+
+The `.pkl` files saved under `results/a3c/[experiment_name]` are used for plotting the testing results. Use the plotting script `generate_plots.py` to generate plots. For example, to plot A3CTBSIL and LiDER:
+
+    $ generate_plots.py --env=MsPacman --baseline --lidera3c
+
+Here is a list of available parameters in the plotting script:
+
+* Parameters for general settings:
+  * `--env`: which game to plot. For example, `--env=MsPacman`.
+  * `--max-timesteps`: the number of time steps (in million) to plot. For example,`--max-timesteps=30` will plot results for 30 million steps. The default value is 50 million steps.
+  * `--saveplot`: when enabled, save the plot; otherwise, only display the plot without saving. The default value is `False` (i.e., not saving).
+  * `--nolegend`: when enabled, no legend is shown. The default value is `True` (i.e., show legend).
+  * `--folder`: where to save the plot. By default, a new folder `plots` will be created to save plots.
+  * `--fn`: file name of the plot. When `--saveplot` is enabled, `--fn` must be provided to save the plot.
 
 
+* Parameters for ploting each algorithm:
+  * `--baseline`: plot A3CTBSIL
+  * `--lidera3c`: plot LiDER
+  * `--addall`: plot LiDER-AddAll
+  * `--onebuffer`: plot LiDER-OneBuffer
+  * `--sampler`: plot LiDER-SampleR
+  * `--liderta`: plot LiDER-TA
+  * `--liderbc`: plot LiDER-BC
+
+###### Note on plotting LiDER-TA and LiDER-BC
+The values of the horizontal lines showing pretrained TAs and BCs' performance (Figure 7 of our paper) need to be supplied manually. The current values are taken from our paper. When running your own experiments, the TA and BC's performance will be evaluated for 50 episodes at the beginning of training. Their evaluation results will be stored under `pretrained_models/TA (or BC)/[game]/[game]-model-eval.txt`, including the episodic mean reward, the standard deviation, and the reward for each episode,
+
+## Generate analyses
+coming soon...
 
 ## Acknowledgements
 We thank Gabriel V. de la Cruz Jr. for helpful discussions; his open-source code at [github.com/gabrieledcjr/DeepRL](github.com/gabrieledcjr/DeepRL) is used for training the behavior cloning models in this work. This research used resources of [Kamiak](https://hpc.wsu.edu/), Washington State University’s high-performance computing cluster. Assefaw Gebremedhin is supported by the NSF award IIS-1553528. Part of this work has taken place in the [Intelligent Robot Learning (IRL) Lab](https://irll.ca/) at the University of Alberta, which is supported in part by research grants from the Alberta Machine Intelligence Institute (Amii), CIFAR, and NSERC. Part of this work has taken place in the [Learning Agents Research Group (LARG)](https://www.cs.utexas.edu/users/pstone/) at UT Austin. LARG research is supported in part by NSF (CPS-1739964, IIS1724157, NRI-1925082), ONR (N00014-18-2243), FLI (RFP2-000), ARL, DARPA, Lockheed Martin, GM, and Bosch. Peter Stone serves as the Executive Director of Sony AI America and receives financial compensation for this work. The terms of this arrangement have been reviewed and approved by the University of Texas at Austin in accordance with its policy on objectivity in research.
