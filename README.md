@@ -129,7 +129,7 @@ Note that saving replay buffers can be memory-intensive. If you don't have enoug
 ## Data and plots
 
 ####  Reproduce figures in the paper
-See folder [data_and_plots](https://github.com/duyunshu/lucid-dreaming-for-exp-replay/tree/master/data_and_plots).
+(Coming soon..) See folder [data_and_plots](https://github.com/duyunshu/lucid-dreaming-for-exp-replay/tree/master/data_and_plots).
 
 ####  Plot your experiment results
 When running your own experiments, a `results` folder will be created to save results. For example, after training MsPacman using LiDER for three trials, the `results` folder will structure as follows:
@@ -153,12 +153,31 @@ The `.pkl` files saved under `results/a3c/[experiment_name]` are used for plotti
 
     $ generate_plots.py --env=MsPacman --baseline --lidera3c
 
-Here is a list of parameters that can be used with the plotting script:
+Here is a list of available parameters in the plotting script:
 
-* `--baseline`: plot A3CTBSIL
-* `--lidera3c`: plot LiDER
-* `--`
+* Parameters for general settings:
+  * `--env`: which game to plot. For example, `--env=MsPacman`.
+  * `--max-timesteps`: the number of time steps (in million) to plot. For example,`--max-timesteps=30` will plot results for 30 million steps. The default value is 50 million steps.
+  * `--saveplot`: when enabled, save the plot; otherwise, only display the plot without saving. The default value is `False` (i.e., not saving).
+  * `--nolegend`: when enabled, no legend is shown. The default value is `True` (i.e., show legend).
+  * `--folder`: where to save the plot. By default, a new folder `plots` will be created to save plots.
+  * `--fn`: file name of the plot. When `--saveplot` is enabled, `--fn` must be provided to save the plot.
+
+
+* Parameters for ploting each algorithm:
+  * `--baseline`: plot A3CTBSIL
+  * `--lidera3c`: plot LiDER
+  * `--addall`: plot LiDER-AddAll
+  * `--onebuffer`: plot LiDER-OneBuffer
+  * `--sampler`: plot LiDER-SampleR
+  * `--liderta`: plot LiDER-TA
+  * `--liderbc`: plot LiDER-BC
+
+###### Note on plotting LiDER-TA and LiDER-BC
+The values of the horizontal lines showing pretrained TAs and BCs' performance (Figure 7 of our paper) need to be supplied manually. The current values are taken from our paper. When running your own experiments, the TA and BC's performance will be evaluated for 50 episodes at the beginning of training. Their evaluation results will be stored under `pretrained_models/TA (or BC)/[game]/[game]-model-eval.txt`, including the episodic mean reward, the standard deviation, and the reward for each episode,
+
 ## Generate analyses
+coming soon...
 
 ## Acknowledgements
 We thank Gabriel V. de la Cruz Jr. for helpful discussions; his open-source code at [github.com/gabrieledcjr/DeepRL](github.com/gabrieledcjr/DeepRL) is used for training the behavior cloning models in this work. This research used resources of [Kamiak](https://hpc.wsu.edu/), Washington State University’s high-performance computing cluster. Assefaw Gebremedhin is supported by the NSF award IIS-1553528. Part of this work has taken place in the [Intelligent Robot Learning (IRL) Lab](https://irll.ca/) at the University of Alberta, which is supported in part by research grants from the Alberta Machine Intelligence Institute (Amii), CIFAR, and NSERC. Part of this work has taken place in the [Learning Agents Research Group (LARG)](https://www.cs.utexas.edu/users/pstone/) at UT Austin. LARG research is supported in part by NSF (CPS-1739964, IIS1724157, NRI-1925082), ONR (N00014-18-2243), FLI (RFP2-000), ARL, DARPA, Lockheed Martin, GM, and Bosch. Peter Stone serves as the Executive Director of Sony AI America and receives financial compensation for this work. The terms of this arrangement have been reviewed and approved by the University of Texas at Austin in accordance with its policy on objectivity in research.
