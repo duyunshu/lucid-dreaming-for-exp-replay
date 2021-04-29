@@ -1,5 +1,5 @@
 # Lucid Dreaming for Experience Replay (LiDER)
-Implementation of paper [Lucid Dreaming for Experience Replay: Refreshing Past States with the Current Policy](https://arxiv.org/abs/2009.13736)
+Implementation of our paper [Lucid Dreaming for Experience Replay: Refreshing Past States with the Current Policy](https://arxiv.org/abs/2009.13736)
 
 Tested in Ubuntu 18.04, Tensorflow 1.11, Python 3.6
 
@@ -14,10 +14,10 @@ Citation:
 }
 ```
 
-##### Currently available
+#### Currently available
 A3CTBSIL, LiDER, three LiDER ablations, LiDER-TA, and LiDER-BC,
 
-##### Upcoming
+#### Upcoming
 Data and plots, analyses, running on a cluster
 
 ## Installation
@@ -66,27 +66,30 @@ To run the ablation LiDER-SampleR:
     $./run_lider_sampleR.sh MsPacman
 
 ####  LiDER-TA and LiDER-BC
-First, unzip `pretrained_models.tar.gz` to obtain all pre-trained models used in the paper:
+First, download [pretrained_models.tar.gz](https://drive.google.com/file/d/1Zz0VoB5hWf7OpHWoG-nPInCpX36gscBU/view?usp=sharing) (file size ~2GB). Then, unzip to obtain all pre-trained models used in the paper:
 
     $ tar -xzvf pretrained_models.tar.gz
 
-This will produce folder `pretrained_models` in the following structure, including the checkpoints for all pre-trained models:
+This will produce folder `pretrained_models`, which contains the checkpoints for all pre-trained models. This folder should be placed under the main directory:
 ```
-pretrained_models
-└── BC
-    └── Alien
-    └── Freeway
-    └── Gopher
-    └── MontezumaRevenge
-    └── MsPacman
-    └── NameThisGame
-└── TA
-    └── Alien
-    └── Freeway
-    └── Gopher
-    └── MontezumaRevenge
-    └── MsPacman
-    └── NameThisGame
+lucid-dreaming-for-exp-replay
+└──LiDER
+└──pretrained_models
+   └── TA
+        └── Alien
+        └── Freeway
+        └── Gopher
+        └── MontezumaRevenge
+        └── MsPacman
+        └── NameThisGame
+   └── BC
+        └── Alien
+        └── Freeway
+        └── Gopher
+        └── MontezumaRevenge
+        └── MsPacman
+        └── NameThisGame
+
 ```
 
 Then, to run the extension LiDER-TA:
@@ -123,7 +126,11 @@ Note that saving replay buffers can be memory-intensive. If you don't have enoug
 
 ## Data and plots
 
-Coming soon
+####  Reproduce figures in the paper
+
+####  Plot your results
+
+
 
 ## Acknowledgements
 We thank Gabriel V. de la Cruz Jr. for helpful discussions; his open-source code at [github.com/gabrieledcjr/DeepRL](github.com/gabrieledcjr/DeepRL) is used for training the behavior cloning models in this work. This research used resources of [Kamiak](https://hpc.wsu.edu/), Washington State University’s high-performance computing cluster. Assefaw Gebremedhin is supported by the NSF award IIS-1553528. Part of this work has taken place in the [Intelligent Robot Learning (IRL) Lab](https://irll.ca/) at the University of Alberta, which is supported in part by research grants from the Alberta Machine Intelligence Institute (Amii), CIFAR, and NSERC. Part of this work has taken place in the [Learning Agents Research Group (LARG)](https://www.cs.utexas.edu/users/pstone/) at UT Austin. LARG research is supported in part by NSF (CPS-1739964, IIS1724157, NRI-1925082), ONR (N00014-18-2243), FLI (RFP2-000), ARL, DARPA, Lockheed Martin, GM, and Bosch. Peter Stone serves as the Executive Director of Sony AI America and receives financial compensation for this work. The terms of this arrangement have been reviewed and approved by the University of Texas at Austin in accordance with its policy on objectivity in research.
