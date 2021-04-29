@@ -293,8 +293,8 @@ class RefreshThread(CommonWorker):
                 rollout_ctr += 1
                 terminal_end = get_wrapper_by_name(env, name).was_real_done
 
+                # compute new return
                 new_return = self.compute_return_for_state(rewards, terminals)
-
                 if not add_all_rollout:
                     if new_return > old_return:
                         add = True

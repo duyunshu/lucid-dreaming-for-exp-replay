@@ -15,14 +15,14 @@ Citation:
 ```
 
 ##### Currently available
-A3CTBSIL, LiDER, and three LiDER ablations
+A3CTBSIL, LiDER, three LiDER ablations, LiDER-TA, and LiDER-BC,
 
 ##### Upcoming
-LiDER-TA, LiDER-BC, data and plots, running on a cluster
+Data and plots, analyses, running on a cluster
 
 ## Installation
 
-It is recommended to use a virtual environment for installation. Using ```conda``` (version 4.7.10) as an example here .
+It is recommended to use a virtual environment for installation. Using ```conda``` (version 4.7.10) as an example here.
 
 Create a virtual environment (name "liderenv") from the ```env.yml``` file:
 
@@ -39,10 +39,11 @@ If you have a supported GPU and have already set up CUDA, install tensorflow-gpu
 _Note: you may use a newer version of Tensorflow (e.g., 1.14) but there will be warning messages. However, this implementation has not been tested in TensorFlow 1.14 or higher_
 
 ## How to run
-
 We provide several bash files that have been configured to run corresponding experiments in the paper (i.e., using the same parameters as in the paper). The bash file takes the first argument as the input to choose which game to train. Valid games are: ```Gopher```, ```NameThisGame```, ```Alien```, ```MsPacman```, ```Freeway```, and ```MontezumaRevenge```.
 
 _Note: If you installed ```tensorflow-gpu```, uncomment line ```--use-gpu --cuda-devices=0``` in the bash file to enable running on GPU._
+
+####  A3CTBSIL, LiDER, and LiDER ablation studies
 
 For example, to train MsPacman in baseline A3CTBSIL:
 
@@ -52,23 +53,49 @@ To run LiDER, our proposed framework:
 
     $./run_lider.sh MsPacman
 
-To run the ablation LiDER-AddAll,
+To run the ablation LiDER-AddAll:
 
     $./run_lider_addall.sh MsPacman
 
-To run the ablation LiDER-OneBuffer,
+To run the ablation LiDER-OneBuffer:
 
     $./run_lider_onebuffer.sh MsPacman
 
-To run the ablation LiDER-SampleR
+To run the ablation LiDER-SampleR:
 
     $./run_lider_sampleR.sh MsPacman
 
-Coming soon:
+####  LiDER-TA and LiDER-BC
+First, unzip `pretrained_models.tar.gz` to obtain all pre-trained models used in the paper:
 
-To run the extension LiDER-TA
+    $ tar -xzvf pretrained_models.tar.gz
 
-To run the extension LiDER-BC
+This will produce folder `pretrained_models` in the following structure, including the checkpoints for all pre-trained models:
+```
+pretrained_models
+└── BC
+    └── Alien
+    └── Freeway
+    └── Gopher
+    └── MontezumaRevenge
+    └── MsPacman
+    └── NameThisGame
+└── TA
+    └── Alien
+    └── Freeway
+    └── Gopher
+    └── MontezumaRevenge
+    └── MsPacman
+    └── NameThisGame
+```
+
+Then, to run the extension LiDER-TA:
+
+    $./run_lider_ta MsPacman
+
+To run the extension LiDER-BC:
+
+    $./run_lider_bc MsPacman
 
 ## Checkpointing
 

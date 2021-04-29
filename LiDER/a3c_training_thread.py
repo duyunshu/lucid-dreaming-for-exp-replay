@@ -240,7 +240,7 @@ class A3CTrainingThread(CommonWorker):
         batch_adv = []
         batch_cumsum_reward = []
 
-        # compute and accumulate gradients
+        # compute TB return and accumulate gradients
         for(ai, ri, si, vi) in zip(actions, rewards, states, values):
             if self.transformed_bellman:
                 ri = np.sign(ri) * self.reward_constant + ri

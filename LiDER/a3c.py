@@ -52,6 +52,8 @@ def run_a3c(args):
     global_t = 0
     rewards = {'train': {}, 'eval': {}}
     best_model_reward = -(sys.maxsize)
+    if args.load_pretrained_model:
+        class_rewards = {'class_eval': {}}
 
     # setup logging info for analysis, see Section 4.2 of the paper
     sil_dict = {
@@ -339,7 +341,7 @@ def run_a3c(args):
 
         if args.load_pretrained_model:
             class_reward_file = folder / '{}-class-rewards.pkl'.format(GYM_ENV_NAME)
-            class_rewards = restore_dict(class_reward_file, tmp_t)
+            class_rewards = restore_dict(class_reward_file, global_t)
 
         # restore replay buffers (if saved)
         if args.checkpoint_buffer:
@@ -412,8 +414,8 @@ def run_a3c(args):
                                                     worker=all_workers[-1],
                                                     model=global_pretrained_model)
                     # log pretrained model performance
-                    class_eval_file = pathlib.Path(args.pretrained_model_folder[:41]+\
-                        str(GAME_NAME)+"/"+str(GAME_NAME)+'-eval.txt')
+                    class_eval_file = pathlib.Path(args.pretrained_model_folder[:21]+\
+                        str(GAME_NAME)+"/"+str(GAME_NAME)+'-model-eval.txt')
                     class_std = np.std(class_rewards['class_eval'][step_t][-1])
                     class_mean = np.mean(class_rewards['class_eval'][step_t][-1])
                     with class_eval_file.open('w') as f:
@@ -598,14 +600,15 @@ def run_a3c(args):
                     sample = shared_memory.sample_one_random()
                     # after sample, flip refreshed to True
                     # TODO: fix this so that only *succesful* refresh is flipped to True
+                    # currently counting *all* refresh as True
                     assert sample[-1] == True
 
                     train_out = parallel_worker.rollout(sess, folder, pretrain_sess,
-                                                   global_t, sample,
-                                                   args.addall,
-                                                   args.max_ep_step,
-                                                   args.nstep_bc,
-                                                   args.update_in_rollout)
+                                                        global_t, sample,
+                                                        args.addall,
+                                                        args.max_ep_step,
+                                                        args.nstep_bc,
+                                                        args.update_in_rollout)
 
                     diff_global_t, episode_end, part_end, local_rollout_ctr, \
                         local_rollout_added_ctr, add, local_rollout_new_return, \
@@ -690,8 +693,9 @@ def run_a3c(args):
 
                     step_t = int(next_global_t - args.eval_freq)
 
+                    # Evaluate for 125,000 steps
                     rewards['eval'][step_t] = parallel_worker.testing(
-                        sess, args.eval_max_steps, global_t, folder,
+                        sess, args.eval_max_steps, step_t, folder,
                         worker=all_workers[-1])
                     save_best_model(rewards['eval'][step_t][0])
                     last_reward = rewards['eval'][step_t][0]
@@ -710,7 +714,7 @@ def run_a3c(args):
                     rollout_dict['rollout_new_return'][step_t] = rollout_new_return
                     rollout_dict['rollout_old_return'][step_t] = rollout_old_return
 
-                    # save after done with eval
+                    # save ckpt after done with eval
                     if global_t > next_save_t:
                         next_save_t = next_t(global_t, args.eval_freq*args.checkpoint_freq)
 

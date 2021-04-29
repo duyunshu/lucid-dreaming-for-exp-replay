@@ -78,10 +78,9 @@ def main():
                         help='number of steps for evaluation')
     parser.add_argument('--l2-beta', type=float, default=0.,
                         help='L2 regularization beta')
-
+    #ALE default see: https://github.com/openai/gym/blob/54f22cf4db2e43063093a1b15d968a57a32b6e90/gym/envs/__init__.py#L635
     parser.add_argument('--max-ep-step', type=float, default=10000,
                         help='maximum time step for an episode (lower than ALE default)')
-    #ALE default see: https://github.com/openai/gym/blob/54f22cf4db2e43063093a1b15d968a57a32b6e90/gym/envs/__init__.py#L635
 
     # Alternatives to reward clipping
     parser.add_argument('--unclipped-reward', action='store_true',
@@ -140,14 +139,17 @@ def main():
     parser.add_argument('--classify-demo', action='store_true',
                         help='Load pretrained classifier')
     parser.set_defaults(classify_demo=False)
-
+    parser.add_argument('--class-l1-beta', type=float, default=0.,
+                        help='L1 regularization beta')
+    parser.add_argument('--class-l2-beta', type=float, default=0.,
+                        help='classifier L2 regularization beta')
 
     args = parser.parse_args()
 
     if args.onebuffer or args.addall or args.sampleR:
         assert args.use_lider, 'must use_lider for addall, onebuffer, or sampleR'
 
-    if args.load_pretrained_model:
+    if args.load_BC or args.load_TA:
         assert args.use_lider, 'must use_lider for LiDER-TA or LiDER-BC'
         assert args.pretrained_model_folder is not None, 'must provide pretrained model path'
         assert not (args.load_TA and args.load_BC), 'must choose between load TA OR BC, cannot load both'
@@ -165,10 +167,18 @@ def main():
             logger.info('Ablation LiDER-SampleR')
         elif args.load_TA:
             logger.info('Extention: LiDER-TA')
+            args.load_pretrained_model=True
+            args.nstep_bc=100000
+            args.classify_demo=True
         elif args.load_BC:
             logger.info('Extention: LiDER-BC')
+            args.load_pretrained_model=True
+            args.nstep_bc=100000
+            args.classify_demo=True
     else:
         logger.info('Running A3CTBSIL...')
+
+
 
     run_a3c(args)
 

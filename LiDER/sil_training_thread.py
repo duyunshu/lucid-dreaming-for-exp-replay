@@ -206,7 +206,7 @@ class SILTrainingThread(CommonWorker):
                     batch_refresh.extend(d_batch_refresh)
                     weights.extend(d_weights)
 
-            # sample from buffer R (if applicable)
+            # sample from buffer R
             if r_batch_size > 0 and len(rollout_buffer) > r_batch_size:
                 r_sample = rollout_buffer.sample(r_batch_size, beta=0.4)
                 r_index_list, r_batch, r_weights = r_sample
@@ -284,7 +284,7 @@ class SILTrainingThread(CommonWorker):
                local_sil_old_used
 
     def update_priorities_once(self, sess, memory, index_list, batch_state,
-        batch_action, batch_returns):
+                               batch_action, batch_returns):
         """Self-imitation update priorities once."""
         # copy weights from shared to local
         sess.run(self.sync)
