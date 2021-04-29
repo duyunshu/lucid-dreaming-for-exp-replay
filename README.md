@@ -159,22 +159,22 @@ Here is a list of available parameters in the plotting script:
   * `--env`: which game to plot. For example, `--env=MsPacman`.
   * `--max-timesteps`: the number of time steps (in million) to plot. For example,`--max-timesteps=30` will plot results for 30 million steps. The default value is 50 million steps.
   * `--saveplot`: when enabled, save the plot; otherwise, only display the plot without saving. The default value is `False` (i.e., not saving).
-  * `--nolegend`: when enabled, no legend is shown. The default value is `True` (i.e., show legend).
-  * `--folder`: where to save the plot. By default, a new folder `plots` will be created to save plots.
+  * `--nolegend`: when enabled, no legend is shown. The default value is `False` (i.e., show legend).
+  * `--folder`: where to save the plot. By default, a new folder `plots` will be created.
   * `--fn`: file name of the plot. When `--saveplot` is enabled, `--fn` must be provided to save the plot.
 
 
-* Parameters for ploting each algorithm:
-  * `--baseline`: plot A3CTBSIL
-  * `--lidera3c`: plot LiDER
-  * `--addall`: plot LiDER-AddAll
-  * `--onebuffer`: plot LiDER-OneBuffer
-  * `--sampler`: plot LiDER-SampleR
-  * `--liderta`: plot LiDER-TA
-  * `--liderbc`: plot LiDER-BC
+* Parameters for plotting each algorithm:
+  * `--baseline`: A3CTBSIL
+  * `--lidera3c`: LiDER
+  * `--addall`: LiDER-AddAll
+  * `--onebuffer`: LiDER-OneBuffer
+  * `--sampler`: LiDER-SampleR
+  * `--liderta`: LiDER-TA
+  * `--liderbc`: LiDER-BC
 
-###### Note on plotting LiDER-TA and LiDER-BC
-The values of the horizontal lines showing pretrained TAs and BCs' performance (Figure 7 of our paper) need to be supplied manually. The current values are taken from our paper. When running your own experiments, the TA and BC's performance will be evaluated for 50 episodes at the beginning of training. Their evaluation results will be stored under `pretrained_models/TA (or BC)/[game]/[game]-model-eval.txt`, including the episodic mean reward, the standard deviation, and the reward for each episode,
+##### Note on plotting LiDER-TA and LiDER-BC
+The values of the horizontal lines showing pretrained TAs and BCs' performance (Figure 7 of our paper) need to be supplied manually. The current values are taken from our paper. When running your own experiments, the TA and BC's performance will be evaluated for 50 episodes at the beginning of training. Their evaluation results will be stored under `pretrained_models/TA (or BC)/[game]/[game]-model-eval.txt`, including the episodic mean reward, the standard deviation, and the reward for each episode.
 
 ## Generate analyses
 coming soon...
