@@ -2,7 +2,7 @@
 
 Coming soon...
 
-Data and plots for [Lucid Dreaming for Experience Replay: Refreshing Past States with the Current Policy](https://arxiv.org/abs/2009.13736), 
+Data and plots for [Lucid Dreaming for Experience Replay: Refreshing Past States with the Current Policy](https://arxiv.org/abs/2009.13736),
 
 We provide here all data used in our paper for reproducibility.
 
