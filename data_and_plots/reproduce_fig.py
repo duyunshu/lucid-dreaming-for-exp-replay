@@ -19,7 +19,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--env', type=str, required=True, help="which game to plot")
 parser.add_argument('--max-timesteps', type=int, default=50)
 parser.add_argument('--deep-rl-algo', type=str, default='a3c')
-parser.add_argument('--result-folder', type=str, default='a3c')
+parser.add_argument('--result-folder', type=str, default='LiDER_data')
 parser.add_argument('--saveplot', action='store_true', help='save plot or not')
 parser.set_defaults(saveplot=False)
 parser.add_argument('--nolegend', action='store_true', help='dont show legend')
@@ -55,7 +55,7 @@ deep_rl_algo = args.deep_rl_algo
 game_env_type = 'NoFrameskip_v4'
 location = 'lower right'
 ncol = 1
-num_data = [1, 2, 3] # detault three trials
+num_data = [1, 2, 3, 4, 5, 6, 7, 8] # eight trials
 
 # plot the horizontal line for TA and BC
 # NOTE: their values need to be set manually
@@ -139,7 +139,7 @@ def plot_fun(
     ''' creates dataframe and plots graph '''
     rewards_all_trials = []
     for data_idx in num_data:
-        folder=('results/{}/'.format(result_folder) + gym_env + \
+        folder=('{}/{}/'.format(result_folder, args.env) + gym_env + \
         '{}_{}/'.format(ex_type, data_idx) + \
         gym_env + '-{}-rewards.pkl'.format(deep_rl_algo))
         print(folder)
