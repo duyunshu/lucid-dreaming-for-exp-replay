@@ -22,7 +22,7 @@ First, download [LiDER_data.tar.gz](https://drive.google.com/file/d/1Dkq3chHHCD7
 
     $ tar -xzvf LiDER_data.tar.gz
 
-This will produce folder `LiDER_data`, which contains reward pickle files for all experiments in the paper. This folder should be placed under *this* folder `data_and_plots`:
+This will produce folder `LiDER_data`, which contains reward pickle files for all experiments in the paper. This folder should be placed under folder `data_and_plots` (i.e., *this* folder):
 ```
 lucid-dreaming-for-exp-replay
 └──LiDER
