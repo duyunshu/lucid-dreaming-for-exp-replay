@@ -18,7 +18,7 @@ Citation:
 ```
 ####  Reproduce figures
 
-First, download [LiDER_data.tar.gz](https://drive.google.com/file/d/1Dkq3chHHCD7LlCVsrhAGw1ekekWmJ1y4/view?usp=sharing) (file size ~100MB). Then, unzip to obtain all data used in the paper:
+First, download [LiDER_data.tar.gz](https://drive.google.com/file/d/1q2mXe2LIgE2g_nwCR2JVpwS0GA6IIAdU/view?usp=sharing) (file size ~100MB). Then, unzip to obtain all data used in the paper:
 
     $ tar -xzvf LiDER_data.tar.gz
 
@@ -54,4 +54,31 @@ Figure 7 (extensions)
 
 ####  Reproduce analyses
 
-Coming soon...
+Analyses were performed in `MsPacman` only, the data is located in folder `MsPacman`:
+```
+└── LiDER_data
+   └── MsPacman
+       └── analyses
+       └── ...       
+```
+Reproduce analyses in the paper with script `reproduce_analyses.py`. Parameter `--env=MsPacman` by default; there are no data for other games. Parameter `--fn` is also set in the script for saving plots, no need to specify.
+
+Figure 3
+
+    $ python3 reproduce_analyses.py --refresh-success --saveplot
+    $ python3 reproduce_analyses.py --refresh-gnew --saveplot
+
+Table 1
+
+    $ python3 reproduce_analyses.py --sil-old-used
+
+Figure 4
+
+    $ python3 reproduce_analyses.py --batch-sample-usage-ratio --saveplot
+    $ python3 reproduce_analyses.py --sil-sample-usage-ratio --saveplot
+    $ python3 reproduce_analyses.py --sil-return-of-used-samples --saveplot
+
+Figure 5
+
+    $ python3 reproduce_analyses.py --total-batch-usage --saveplot
+    $ python3 reproduce_analyses.py --total-used-return --saveplot

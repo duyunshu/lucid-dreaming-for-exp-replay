@@ -207,8 +207,8 @@ if args.lidera3c:
     ex_type = '_rawreward_transformedbell_sil_prioritymem_lider'
     plot_fun(
         ex_type=ex_type,
-        color='green',#'kelly green',
-        marker='^',#'x',
+        color='green',
+        marker='^',
         result_folder=args.result_folder,
         label='LiDER',
         num_data=num_data)
