@@ -27,7 +27,6 @@ parser.set_defaults(nolegend=False)
 parser.add_argument('--folder', type=str, default='plots', help="where to save the plot")
 parser.add_argument('--fn', type=str, default='', help="plot name")
 
-
 # A3CTBSIL and LiDER
 parser.add_argument('--baseline', action='store_true', help='plot A3CTBSIL')
 parser.set_defaults(baseline=False)

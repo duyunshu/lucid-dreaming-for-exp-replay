@@ -154,13 +154,14 @@ class SILTrainingThread(CommonWorker):
                                                        self.initial_learning_rate)
 
         local_sil_ctr = 0
-        local_sil_a3c_used, local_sil_a3c_used_return = 0, 0
-        local_sil_rollout_used, local_sil_rollout_used_return = 0, 0
+        local_sil_a3c_sampled, local_sil_a3c_used, local_sil_a3c_used_return = 0, 0, 0
+        local_sil_rollout_sampled, local_sil_rollout_used, local_sil_rollout_used_return = 0, 0, 0
         local_sil_old_used = 0
 
         total_used = 0
         num_a3c_used = 0
         num_rollout_used = 0
+        num_rollout_sampled = 0
         num_old_used = 0
 
         for _ in range(m):
@@ -239,6 +240,9 @@ class SILTrainingThread(CommonWorker):
                 batch_state, batch_action, batch_returns, \
                     batch_fullstate, batch_rollout, batch_refresh = batch
 
+            if self.use_rollout:
+                num_rollout_sampled += np.sum(batch_rollout)
+
             # sil policy update (if one full batch is sampled)
             if len(batch_state) == self.batch_size:
                 feed_dict = {
@@ -275,12 +279,16 @@ class SILTrainingThread(CommonWorker):
 
                 local_sil_ctr += 1
 
+        local_sil_a3c_sampled += (self.batch_size*m - num_rollout_sampled)
+        local_sil_rollout_sampled += num_rollout_sampled
         local_sil_a3c_used += num_a3c_used
         local_sil_rollout_used += num_rollout_used
         local_sil_old_used += num_old_used
 
-        return local_sil_ctr, local_sil_a3c_used, local_sil_a3c_used_return, \
-               local_sil_rollout_used, local_sil_rollout_used_return, \
+        return local_sil_ctr, local_sil_a3c_sampled, local_sil_a3c_used, \
+               local_sil_a3c_used_return, \
+               local_sil_rollout_sampled, local_sil_rollout_used, \
+               local_sil_rollout_used_return, \
                local_sil_old_used
 
     def update_priorities_once(self, sess, memory, index_list, batch_state,

@@ -125,7 +125,7 @@ The checkpointing frequency can be changed by modifying argument ```--checkpoint
 
 The argument ```--checkpoint-buffer``` controls whether to save the entire replay buffer. When enabled, the replay buffer(s) will be saved at each checkpoint; previously collected experiences will be loaded when training is resumed.
 
-Note that saving replay buffers can be memory-intensive. If you don't have enough capacity, you can either increase ```--checkpoint-freq``` to checkpoint less frequently, or remove line ```--checkpoint-buffer``` to save only the model parameters. If replay buffers were not saved, when resuming training you will start with an empty buffer(s).  
+Note that saving replay buffers can be memory-intensive. If you don't have enough capacity, you can either increase ```--checkpoint-freq``` to checkpoint less frequently, or remove line ```--checkpoint-buffer``` to save only the model parameters. If replay buffers were not saved, when resuming training you will start with empty buffer(s).  
 
 
 ## Data and plots
@@ -153,7 +153,7 @@ lucid-dreaming-for-exp-replay
 
 The `.pkl` files saved under `results/a3c/[experiment_name]` are used for plotting the testing results. Use the plotting script `generate_plots.py` to generate plots. For example, to plot A3CTBSIL and LiDER:
 
-    $ generate_plots.py --env=MsPacman --baseline --lidera3c
+    $ python3 generate_plots.py --env=MsPacman --baseline --lidera3c --saveplot
 
 Here is a list of available parameters in the plotting script:
 
@@ -180,7 +180,25 @@ The values of the horizontal lines showing pretrained TAs and BCs' performance (
 
 
 ####  Plot your analyses
-Coming soon...
+Analyses can be generated for your A3CTBSIL and LiDER experiments (_currently not supporting analysis for other extensions_). The results are also stored under the `results` folder. Use script `generate_analyses.py` to generate analyses plot. For example, to look at the "success rate" in refresher worker (Section 4.2.1):
+
+    $ python3 generate_analyses.py --env=MsPacman --refresh-success --saveplot
+
+Here is a list of available parameters in the plotting script:
+  * Parameters for general settings are the same as above
+
+  * Parameters for plotting each analysis:
+    * Section 4.2.1:
+      * `--refresh-success`: Success rate
+      * `--refresh-gnew`: Gnew vs. G
+    * Section 4.2.2:
+      * `--sil-old-used`: Old samples used (_this does not generate plots, only displays values of the table_)
+      * `--batch-sample-usage-ratio`: Batch sample usage ratio (LiDER)
+      * `--sil-sample-usage-ratio`: SIL sample usage ratio
+      * `--sil-return-of-used-samples`: Return of used samples (LiDER)
+    * Section 4.2.3:
+      * `--total-batch-usage`: batch sample usage ratio (A3CTBSIL & LiDER)
+      * `--total-used-return`: Return of used samples (A3CTBSIL & LiDER)
 
 
 ## Acknowledgements
