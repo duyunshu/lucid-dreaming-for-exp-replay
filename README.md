@@ -130,7 +130,7 @@ Note that saving replay buffers can be memory-intensive. If you don't have enoug
 
 ## Data and plots
 
-####  Reproduce figures in the paper
+####  Reproduce figures and analyses in the paper
 See folder [data_and_plots](https://github.com/duyunshu/lucid-dreaming-for-exp-replay/tree/master/data_and_plots).
 
 ####  Plot your experiment results
@@ -178,13 +178,10 @@ Here is a list of available parameters in the plotting script:
 ##### Note on plotting LiDER-TA and LiDER-BC
 The values of the horizontal lines showing pretrained TAs and BCs' performance (Figure 7 of our paper) need to be supplied manually. The current values are taken from our paper. When running your own experiments, the TA and BC's performance will be evaluated for 50 episodes at the beginning of training. Their evaluation results will be stored under `pretrained_models/TA (or BC)/[game]/[game]-model-eval.txt`, including the episodic mean reward, the standard deviation, and the reward for each episode.
 
-## Generate analyses
-
-####  Reproduce analyses in the paper
-See folder [data_and_plots](https://github.com/duyunshu/lucid-dreaming-for-exp-replay/tree/master/data_and_plots).
 
 ####  Plot your analyses
 Coming soon...
+
 
 ## Acknowledgements
 We thank Gabriel V. de la Cruz Jr. for helpful discussions; his open-source code at [github.com/gabrieledcjr/DeepRL](github.com/gabrieledcjr/DeepRL) is used for training the behavior cloning models in this work. This research used resources of [Kamiak](https://hpc.wsu.edu/), Washington State University’s high-performance computing cluster. Assefaw Gebremedhin is supported by the NSF award IIS-1553528. Part of this work has taken place in the [Intelligent Robot Learning (IRL) Lab](https://irll.ca/) at the University of Alberta, which is supported in part by research grants from the Alberta Machine Intelligence Institute (Amii), CIFAR, and NSERC. Part of this work has taken place in the [Learning Agents Research Group (LARG)](https://www.cs.utexas.edu/users/pstone/) at UT Austin. LARG research is supported in part by NSF (CPS-1739964, IIS1724157, NRI-1925082), ONR (N00014-18-2243), FLI (RFP2-000), ARL, DARPA, Lockheed Martin, GM, and Bosch. Peter Stone serves as the Executive Director of Sony AI America and receives financial compensation for this work. The terms of this arrangement have been reviewed and approved by the University of Texas at Austin in accordance with its policy on objectivity in research.
