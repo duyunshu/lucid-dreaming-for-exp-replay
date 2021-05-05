@@ -14,13 +14,11 @@ Citation:
 }
 ```
 
-#### Currently available
+#### Available in this repo
 A3CTBSIL, LiDER, three LiDER ablations, LiDER-TA, LiDER-BC
 
-Data and plots
+Data and plots, analyses
 
-#### Upcoming
-Analyses, running on a cluster
 
 ## Installation
 
